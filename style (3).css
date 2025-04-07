@@ -1,0 +1,182 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: #222;
+    font-size: 14px;
+    line-height: 1.8;
+    background: #eee;
+    height: 100%;
+    min-height: 100%;
+    padding: 0;
+    maring: 0:
+}
+
+/* Contenedor general */
+.container {
+    max-width: 700px;
+    background: #fff;
+    margin: 40px auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+    width: 90%;
+}
+
+/* Separación entre las páginas */
+.page-1 {
+    margin-bottom: 50px;
+}
+
+/* Header */
+.header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.full-name {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.contact-info {
+    font-size: 14px;
+    color: #555;
+}
+
+.contact-info .separator {
+    margin: 0 10px;
+    color: #888;
+}
+
+.position {
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: underline;
+}
+
+.about p {
+    text-align: justify;
+}
+
+/* Secciones */
+.section {
+    margin-bottom: 30px;
+}
+
+.section h1 {
+    font-size: 20px;
+    color: #0073e6;
+    border-bottom: 2px solid #0073e6;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+/* Listados */
+.section__list-item {
+    margin-bottom: 20px;
+}
+
+/* Distribución de columnas */
+.details .left,
+.details .right {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+}
+
+.details .right {
+    text-align: right;
+}
+
+/* Enlaces */
+.details a {
+    text-decoration: none;
+    color: #0073e6;
+    font-style: italic;
+}
+
+.details a:hover {
+    text-decoration: underline;
+}
+
+/* Skills */
+.skills__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.skills__item .right label {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: #c3def3;
+    border-radius: 50%;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+.skills__item .right input:checked + label {
+    background: #0073e6;
+}
+
+/* Contador */
+.website-counter {
+    background-color: #0073e6;
+    height: 50px;
+    width: 80px;
+    color: white;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Botón de reset */
+#reset {
+    margin-top: 20px;
+    background-color: #0073e6;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* Responsive: Ajustes para móviles */
+@media (max-width: 600px) {
+    .details .left,
+    .details .right {
+        width: 100%;
+        text-align: left;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .skills__item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .skills__item .right {
+        margin-top: 5px;
+    }
+}
