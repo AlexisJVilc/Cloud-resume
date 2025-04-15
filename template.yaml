@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless Resume Visit Counter
+
+Globals:
+  Function:
+    Runtime: python3.9
+    MemorySize: 128
+    Timeout: 30
+
+Resources:
+  ResumeHitsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ResumeHits
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  ResumeHitCounterFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: DynamoDBAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - dynamodb:UpdateItem
+                  - dynamodb:GetItem
+                Resource: !GetAtt ResumeHitsTable.Arn
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*:/aws/lambda/*
+
+  ResumeHitCounterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: ResumeHitCounter
+      Handler: app.lambda_handler
+      CodeUri: src/
+      Role: !GetAtt ResumeHitCounterFunctionRole.Arn
+      Environment:
+        Variables:
+          HITS_TABLE_NAME: !Ref ResumeHitsTable
+          PRIMARY_KEY: 'resume'
+
+  ResumeHitCounterAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      DefinitionBody:
+        openapi: 3.0.0
+        info:
+          title: Resume Visit Counter API
+          version: v1
+        paths:
+          /hits:
+            get:
+              summary: Increment hit counter
+              x-amazon-apigateway-integration:
+                type: aws_proxy
+                uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ResumeHitCounterFunction.Arn}/invocations
+                passthroughBehavior: WHEN_NO_MATCH
+                httpMethod: POST
+              responses:
+                200:
+                  description: OK
