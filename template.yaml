@@ -79,5 +79,5 @@ Resources:
                 passthroughBehavior: WHEN_NO_MATCH
                 httpMethod: POST
               responses:
-                200:
+                "200":
                   description: OK
