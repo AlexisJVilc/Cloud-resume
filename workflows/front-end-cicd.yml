@@ -18,4 +18,4 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ AKIAQQABDMW45LTDMFVP }}
       AWS_SECRET_ACCESS_KEY: ${{ 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 }}
       AWS_REGION: 'us-west-2'
-      SOURCE_DIR: 'src'
+      SOURCE_DIR: 'main'
