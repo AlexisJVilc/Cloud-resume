@@ -34,6 +34,6 @@ def lambda_handler(event, context):
         return {
             'statusCode': 500,
             'body': json.dumps({
-                'error': "An error occurred while updating visits count.",
-                '
-
+                'error': "An error occurred while updating visits count."
+            })
+        }
